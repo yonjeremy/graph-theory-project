@@ -23,7 +23,7 @@ type nfa struct{
 
 func intopost(infix string) string{
 
-	specials := map[rune]int{'*':10,'.':9,'|':8}
+	specials := map[rune]int{'*':10,'.':9,'|':8,'+':12,'?':11}
 
 	pofix,s := []rune{},[]rune{}
 
@@ -63,6 +63,7 @@ func intopost(infix string) string{
 func poregtonfa(pofix string) *nfa{
 	nfastack := []*nfa{}
 
+	pofix = intopost(pofix)
 	for _,r := range pofix {
 		switch r {
 		case '.':
@@ -99,6 +100,30 @@ func poregtonfa(pofix string) *nfa{
 
 			nfastack = append(nfastack, &nfa{initial: &initial, accept: &accept})
 			
+		case '+':
+			//pop one item
+			frag :=  nfastack[len(nfastack) -1]
+			//remove popped item from stack
+			nfastack =  nfastack[:len(nfastack)-1]
+			//accept state & new initial state
+			accept := state{}
+			//one edge going back to itself & another to the accept
+			initial := state{edge1: frag.initial, edge2: &accept}
+
+			frag.accept.edge1 = &initial
+
+			nfastack = append(nfastack, &nfa{initial: frag.initial, accept: &accept})
+		// The ? operator indicates zero or one
+		case '?':
+			//pop one item
+			frag :=  nfastack[len(nfastack) -1]
+			//remove popped item from stack
+			nfastack =  nfastack[:len(nfastack)-1]
+			//state pointing to popped item and accept state
+			initial := state{edge1: frag.initial, edge2: frag.accept}
+			// add the nfa to the stack
+			nfastack = append(nfastack, &nfa{initial: &initial, accept: frag.accept})
+
 		default:
 			accept := state{}
 			initial := state{symbol: r, edge1: &accept}
@@ -160,15 +185,29 @@ func pomatch( po string, s string) bool{
 
 func main(){
 
-	fmt.Println("Infix: ","a.b.c*")
-	fmt.Println("Postfix: ", intopost("a.b.c*"))
+	var input string
 
-	fmt.Println("Infix: ","(a.(b|d))*")
-	fmt.Println("Postfix: ", intopost("(a.(b|d))*"))
+    
+	fmt.Println("Please enter infix to compile NFA or -1 to quit:")
+	fmt.Scanf("%s\n", &input)
 
-	nfa := poregtonfa("ab.c*")
-	fmt.Println(nfa)
+	for input != "-1"{ 
+		
+
+		fmt.Println("Please enter string to match NFA or -1 to compile new NFA")
+		var regexMatch string
+		fmt.Scanf("%s\n",&regexMatch)
+	
+		for (regexMatch != "-1"){
 
 
-	fmt.Println(pomatch("ab.c*|","sdf"))
+			fmt.Println(pomatch(input,regexMatch))
+			fmt.Println("Please enter string to match NFA or -1 to compile new NFA")
+			fmt.Scanf("%s\n",&regexMatch)
+		}
+		fmt.Println("Please enter infix to compile NFA or -1 to quit:")
+		fmt.Scanf("%s\n", &input)
+	}
+	
+
 }
