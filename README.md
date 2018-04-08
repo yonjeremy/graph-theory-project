@@ -21,7 +21,7 @@ The program has several functions:
 
 1. Git clone this project to local machine
 ```
-git clone https://github.com/yonjeremy/graph-theory-project/blob/master/README.md
+git clone https://github.com/yonjeremy/graph-theory-project/
 ```
 
 2. Build the program
