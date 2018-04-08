@@ -1,3 +1,16 @@
+// Regex NFA Compiler and Regex String Matcher
+// Project by Jeremy Yon of Galway Mayo Institute of Technology
+// Language used: Golang
+// References: https://swtch.com/~rsc/regexp/regexp1.html
+// 				https://web.microsoftstream.com/video/96e6f4cc-b390-4531-ba7f-84ad6ab01f47
+//				https://web.microsoftstream.com/video/d08f6a02-23ec-4fa1-a781-585f1fd8c69e
+//				https://web.microsoftstream.com/video/9d83a3f3-bc4f-4bda-95cc-b21c8e67675e
+//				https://web.microsoftstream.com/video/946a7826-e536-4295-b050-857975162e6c
+//				https://web.microsoftstream.com/video/68a288f5-4688-4b3a-980e-1fcd5dd2a53b
+//				https://web.microsoftstream.com/video/68a288f5-4688-4b3a-980e-1fcd5dd2a53b
+
+
+
 package main
 
 import "fmt"
@@ -240,7 +253,7 @@ func main(){
 	var input string
 
     // get the user to input nfa
-	fmt.Println("Please enter infix to compile NFA or -1 to quit:")
+	fmt.Println("Please enter infix string to compile NFA or -1 to quit:")
 	fmt.Scanf("%s\n", &input)
 
 	// loop through menu
