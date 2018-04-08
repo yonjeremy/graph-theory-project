@@ -62,7 +62,7 @@ The second part of the project is using the thompsons algorithm to generate an n
 3. Matching REGEX strings
 The third part of the project is checking if the regex strings are a match with the NFA that has been generated. It does this by first calling the addState() function, which adds in all the missing states, for example an initial state with empty string. Then, it reads the regex string, and if the character matches the accept state of the final state, then the string is matched.
 
-##Resources
+## Resources
 
 https://swtch.com/~rsc/regexp/regexp1.html
 https://web.microsoftstream.com/video/96e6f4cc-b390-4531-ba7f-84ad6ab01f47
